@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Ataque ENEM 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f4f0; color: #1a1a1a; }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+
+  .hero { background: #1a1a2e; color: #fff; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
+  .hero-label { font-size: 11px; letter-spacing: 0.12em; color: #AFA9EC; text-transform: uppercase; margin-bottom: 6px; }
+  .hero-title { font-size: 26px; font-weight: 700; margin-bottom: 4px; }
+  .hero-sub { font-size: 14px; color: #9b9bb5; margin-bottom: 1rem; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 4px 12px; font-size: 12px; color: #ddd; }
+  .chip.hot { background: rgba(186,117,23,0.3); border-color: rgba(239,159,39,0.5); color: #FAC775; }
+
+  .nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 2rem; }
+  .nav-btn { padding: 8px 16px; border-radius: 20px; font-size: 13px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-weight: 500; }
+  .nav-btn.active { background: #534AB7; color: #fff; border-color: #534AB7; }
+  .nav-btn:hover:not(.active) { background: #eee; }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .phase-header { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; margin-bottom: 1rem; margin-top: 1rem; }
+  .ph1 { background: #EAF3DE; border-left: 4px solid #639922; }
+  .ph2 { background: #E6F1FB; border-left: 4px solid #185FA5; }
+  .ph3 { background: #FAEEDA; border-left: 4px solid #BA7517; }
+  .phase-badge { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 10px; color: #fff; }
+  .ph1 .phase-badge { background: #639922; }
+  .ph2 .phase-badge { background: #185FA5; }
+  .ph3 .phase-badge { background: #BA7517; }
+  .phase-title { font-size: 15px; font-weight: 600; }
+  .ph1 .phase-title { color: #3B6D11; }
+  .ph2 .phase-title { color: #0C447C; }
+  .ph3 .phase-title { color: #633806; }
+
+  .card { background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; }
+  .card-title { font-size: 15px; font-weight: 700; margin-bottom: 1rem; }
+
+  .week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 0.5rem; }
+  .day-col { border-radius: 8px; overflow: hidden; }
+  .day-header { text-align: center; font-size: 11px; font-weight: 700; padding: 5px 2px; color: #fff; }
+  .day-block { font-size: 10px; padding: 6px 4px; text-align: center; line-height: 1.4; min-height: 50px; display: flex; align-items: center; justify-content: center; }
+  .seg { background: #EEEDFE; } .seg .day-header { background: #534AB7; } .seg .day-block { color: #3C3489; }
+  .ter { background: #E6F1FB; } .ter .day-header { background: #185FA5; } .ter .day-block { color: #0C447C; }
+  .qua { background: #EAF3DE; } .qua .day-header { background: #639922; } .qua .day-block { color: #3B6D11; }
+  .qui { background: #FAEEDA; } .qui .day-header { background: #BA7517; } .qui .day-block { color: #633806; }
+  .sex { background: #EEEDFE; } .sex .day-header { background: #534AB7; } .sex .day-block { color: #3C3489; }
+  .sab { background: #FCEBEB; } .sab .day-header { background: #A32D2D; } .sab .day-block { color: #791F1F; }
+  .dom { background: #F1EFE8; } .dom .day-header { background: #5F5E5A; } .dom .day-block { color: #2C2C2A; }
+
+  .bloco-row { display: grid; grid-template-columns: 100px 1fr; gap: 10px; align-items: start; margin-bottom: 6px; }
+  .bloco-hora { font-size: 11px; color: #666; font-weight: 600; padding-top: 5px; }
+  .bloco-content { font-size: 12px; line-height: 1.5; padding: 6px 10px; border-radius: 6px; }
+
+  .checklist-area { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .check-group-title { font-size: 13px; font-weight: 700; margin-bottom: 8px; padding: 5px 10px; border-radius: 6px; }
+  .mat-t { background: #EEEDFE; color: #3C3489; }
+  .nat-t { background: #EAF3DE; color: #3B6D11; }
+  .hum-t { background: #FAEEDA; color: #633806; }
+  .lin-t { background: #E6F1FB; color: #0C447C; }
+  .check-item { display: flex; align-items: flex-start; gap: 7px; font-size: 12px; padding: 3px 0; line-height: 1.4; }
+  .check-item input { margin-top: 2px; accent-color: #534AB7; }
+  .villain { color: #A32D2D; font-weight: 600; }
+
+  .step { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid #eee; align-items: flex-start; }
+  .step:last-child { border-bottom: none; }
+  .step-num { width: 24px; height: 24px; border-radius: 50%; background: #534AB7; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-text { font-size: 13px; line-height: 1.5; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { background: #f0f0f0; padding: 8px; text-align: left; font-weight: 600; }
+  td { padding: 7px 8px; border-bottom: 1px solid #eee; vertical-align: top; }
+
+  .para-block { border-left: 4px solid; padding: 10px 12px; margin-bottom: 10px; border-radius: 0 8px 8px 0; }
+  .intro-b { border-color: #534AB7; background: #EEEDFE; }
+  .dev1-b { border-color: #185FA5; background: #E6F1FB; }
+  .dev2-b { border-color: #639922; background: #EAF3DE; }
+  .conc-b { border-color: #BA7517; background: #FAEEDA; }
+  .para-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .intro-b .para-title { color: #3C3489; }
+  .dev1-b .para-title { color: #0C447C; }
+  .dev2-b .para-title { color: #3B6D11; }
+  .conc-b .para-title { color: #633806; }
+  .para-text { font-size: 12px; color: #444; line-height: 1.5; }
+
+  .rep-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid #eee; }
+  .rep-item:last-child { border-bottom: none; }
+  .rep-icon { font-size: 16px; flex-shrink: 0; }
+  .rep-text { font-size: 12px; line-height: 1.5; }
+
+  .guerra-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .g-title { font-size: 13px; font-weight: 700; padding: 6px 10px; border-radius: 8px; text-align: center; color: #fff; margin-bottom: 10px; }
+  .g1 { background: #534AB7; }
+  .g2 { background: #185FA5; }
+  .g-step { display: flex; gap: 8px; padding: 5px 0; border-bottom: 1px solid #eee; font-size: 12px; }
+  .g-step:last-child { border-bottom: none; }
+  .g-n { color: #888; font-weight: 600; min-width: 18px; font-size: 11px; }
+
+  .anti-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .do-c { border-left: 4px solid #639922; background: #EAF3DE; padding: 1rem; border-radius: 0 8px 8px 0; }
+  .dont-c { border-left: 4px solid #A32D2D; background: #FCEBEB; padding: 1rem; border-radius: 0 8px 8px 0; }
+  .anti-title { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+  .do-c .anti-title { color: #3B6D11; }
+  .dont-c .anti-title { color: #791F1F; }
+  .anti-item { font-size: 12px; padding: 3px 0; display: flex; gap: 6px; }
+
+  .tip { padding: 10px 12px; border-radius: 8px; font-size: 12px; line-height: 1.5; margin-top: 10px; }
+  .tip-green { background: #EAF3DE; color: #3B6D11; }
+  .tip-red { background: #FCEBEB; color: #791F1F; }
+
+  .meses { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 1rem; }
+  .mes { padding: 10px; border-radius: 8px; border: 1px solid #ddd; }
+  .mes-t { font-size: 12px; font-weight: 700; }
+  .mes-s { font-size: 11px; color: #555; margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="hero">
+    <div class="hero-label">Plano de Ataque Estratégico</div>
+    <div class="hero-title">🎯 ENEM 2026 — Meta: 800+ pontos</div>
+    <div class="hero-sub">18h–22h diário · 25–30h semanais · Nível intermediário</div>
+    <div class="chips">
+      <div class="chip">📅 Maio → Novembro 2026</div>
+      <div class="chip hot">🔥 3 Fases de Ataque</div>
+      <div class="chip">⏱ 7 meses de plano</div>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button class="nav-btn active" onclick="show('cronograma',this)">📅 Cronograma</button>
+    <button class="nav-btn" onclick="show('conteudos',this)">📋 Conteúdos</button>
+    <button class="nav-btn" onclick="show('metodo',this)">🧠 Método</button>
+    <button class="nav-btn" onclick="show('simulados',this)">📊 Simulados</button>
+    <button class="nav-btn" onclick="show('redacao',this)">✍️ Redação</button>
+    <button class="nav-btn" onclick="show('guerra',this)">⚔️ Dia da Prova</button>
+  </div>
+
+  <!-- CRONOGRAMA -->
+  <div id="cronograma" class="section active">
+
+    <div class="phase-header ph1">
+      <span class="phase-badge">FASE 1</span>
+      <span class="phase-title">Fundação — Maio a Julho 2026</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title">⏰ Rotina diária — 18h às 22h (4h úteis)</div>
+      <div class="bloco-row"><div class="bloco-hora">18h – 18h10</div><div class="bloco-content" style="background:#f5f5f5">🔁 Ritual de entrada: revisão rápida do dia anterior (flashcards / anotações)</div></div>
+      <div class="bloco-row"><div class="bloco-hora">18h10 – 19h30</div><div class="bloco-content" style="background:#EEEDFE; color:#3C3489">📚 <strong>Bloco 1</strong> — Matéria principal do dia (80 min de foco total, celular no modo avião)</div></div>
+      <div class="bloco-row"><div class="bloco-hora">19h30 – 19h45</div><div class="bloco-content" style="background:#f5f5f5">☕ Pausa ativa (hidratação, alongamento — SEM celular)</div></div>
+      <div class="bloco-row"><div class="bloco-hora">19h45 – 21h05</div><div class="bloco-content" style="background:#E6F1FB; color:#0C447C">📝 <strong>Bloco 2</strong> — Matéria secundária + resolução de questões (80 min)</div></div>
+      <div class="bloco-row"><div class="bloco-hora">21h05 – 21h15</div><div class="bloco-content" style="background:#f5f5f5">🧘 Pausa curta (10 min)</div></div>
+      <div class="bloco-row"><div class="bloco-hora">21h15 – 22h</div><div class="bloco-content" style="background:#FAEEDA; color:#633806">✍️ <strong>Bloco 3</strong> — Redação (2x/sem) ou revisão espaçada + questões comentadas (45 min)</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🗓️ Semana-tipo — divisão por dia</div>
+      <div class="week-grid">
+        <div class="day-col seg"><div class="day-header">SEG</div><div class="day-block">Matemática + Linguagens</div></div>
+        <div class="day-col ter"><div class="day-header">TER</div><div class="day-block">Física + Química</div></div>
+        <div class="day-col qua"><div class="day-header">QUA</div><div class="day-block">História + Geografia</div></div>
+        <div class="day-col qui"><div class="day-header">QUI</div><div class="day-block">Matemática + Biologia</div></div>
+        <div class="day-col sex"><div class="day-header">SEX</div><div class="day-block">Redação + Filosofia/Sociologia</div></div>
+        <div class="day-col sab"><div class="day-header">SÁB</div><div class="day-block">Simulado parcial (2h) + correção</div></div>
+        <div class="day-col dom"><div class="day-header">DOM</div><div class="day-block">Revisão semanal + planejamento</div></div>
+      </div>
+      <p style="font-size:12px;color:#666;margin-top:8px;">Total: ~28h semanais (26h estudo + 2h revisão/planejamento)</p>
+    </div>
+
+    <div class="phase-header ph2">
+      <span class="phase-badge">FASE 2</span>
+      <span class="phase-title">Aprofundamento — Agosto a Outubro 2026</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🗓️ Semana-tipo ajustada — Fase 2</div>
+      <div class="week-grid">
+        <div class="day-col seg"><div class="day-header">SEG</div><div class="day-block">Questões TRI + Revisão Mat</div></div>
+        <div class="day-col ter"><div class="day-header">TER</div><div class="day-block">Ciências: revisão + bancas antigas</div></div>
+        <div class="day-col qua"><div class="day-header">QUA</div><div class="day-block">Humanas aprofundado + questões</div></div>
+        <div class="day-col qui"><div class="day-header">QUI</div><div class="day-block">Redação temática + revisão</div></div>
+        <div class="day-col sex"><div class="day-header">SEX</div><div class="day-block">Simulado 90q em tempo real</div></div>
+        <div class="day-col sab"><div class="day-header">SÁB</div><div class="day-block">Análise de erros + plano de ataque</div></div>
+        <div class="day-col dom"><div class="day-header">DOM</div><div class="day-block">Descanso ativo + revisão leve</div></div>
+      </div>
+    </div>
+
+    <div class="phase-header ph3">
+      <span class="phase-badge">FASE 3</span>
+      <span class="phase-title">Reta Final — Novembro 2026</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🏁 Última semana — protocolo especial</div>
+      <div class="meses">
+        <div class="mes" style="background:#EAF3DE;border-color:#639922"><div class="mes-t" style="color:#3B6D11">D-7 a D-5</div><div class="mes-s">Apenas revisão leve. Sem conteúdo novo. Questões fáceis para ganhar confiança.</div></div>
+        <div class="mes" style="background:#FAEEDA;border-color:#BA7517"><div class="mes-t" style="color:#633806">D-4 a D-2</div><div class="mes-s">Revise sua pasta de erros. Leia suas melhores redações. Durma 8h.</div></div>
+        <div class="mes" style="background:#FCEBEB;border-color:#A32D2D"><div class="mes-t" style="color:#791F1F">D-1</div><div class="mes-s">ZERO estudo. Prepare materiais. Durma cedo. Visualização positiva.</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CONTEÚDOS -->
+  <div id="conteudos" class="section">
+    <div class="card">
+      <div class="card-title">📋 Checklist de conteúdos prioritários (ENEM 2019–2025)</div>
+      <p style="font-size:12px;color:#A32D2D;font-weight:700;margin-bottom:12px;">🔴 = Vilão — mais derrubador de notas</p>
+      <div class="checklist-area">
+
+        <div>
+          <div class="check-group-title mat-t">🔢 Matemática</div>
+          <div class="check-item"><input type="checkbox"><span>Funções (afim, quadrática, exponencial)</span></div>
+          <div class="check-item"><input type="checkbox"><span>Geometria plana e espacial</span></div>
+          <div class="check-item"><input type="checkbox"><span>Probabilidade e estatística</span></div>
+          <div class="check-item"><input type="checkbox"><span>Progressões (PA e PG)</span></div>
+          <div class="check-item"><input type="checkbox"><span>Matemática financeira</span></div>
+          <div class="check-item"><input type="checkbox"><span>Trigonometria</span></div>
+          <div class="check-item"><input type="checkbox"><span>Análise combinatória</span></div>
+          <div class="check-item"><input type="checkbox"><span>Porcentagem e proporcionalidade</span></div>
+          <div class="check-item"><input type="checkbox"><span>Inequações e sistemas</span></div>
+          <div class="check-item"><input type="checkbox"><span>Logaritmos</span></div>
+          <div class="check-item"><input type="checkbox"><span>Matrizes e determinantes</span></div>
+          <div class="check-item"><input type="checkbox"><span>Geometria analítica</span></div>
+          <div class="check-item"><input type="checkbox"><span>Números complexos</span></div>
+          <div class="check-item villain"><input type="checkbox"><span class="villain">🔴 Geometria espacial (vol/área)</span></div>
+          <div class="check-item villain"><input type="checkbox"><span class="villain">🔴 Trigonometria avançada</span></div>
+        </div>
+
+        <div>
+          <div class="check-group-title nat-t">🔬 Ciências da Natureza</div>
+          <div class="check-item"><input type="checkbox"><span>Cinética e equilíbrio químico</span></div>
+          <div class="check-item"><input type="checkbox"><span>Eletrostática e eletrodinâmica</span></div>
+          <div class="check-item"><input type="checkbox"><span>Genética mendeliana</span></div>
+          <div class="check-item"><input type="checkbox"><span>Termoquímica e termologia</span></div>
+          <div class="check-item"><input type="checkbox"><span>Ecologia e meio ambiente</span></div>
+          <div class="check-item"><input type="checkbox"><span>Ondas e óptica</span></div>
+          <div class="check-item"><input type="checkbox"><span>Soluções e estequiometria</span></div>
+          <div class="check-item"><input type="checkbox"><span>Fisiologia humana</span></div>
+          <div class="check-item"><input type="checkbox"><span>Mecânica (cinemática e dinâmica)</span></div>
+          <div class="check-item"><input type="checkbox"><span>Evolução e biotecnologia</span></div>
+          <div class="check-item villain"><input type="checkbox"><span class="villain">🔴 Química orgânica (reações)</span></div>
+          <div class="check-item villain"><input type="checkbox"><span class="villain">🔴 Eletromagnetismo</span></div>
+          <div class="check-item villain"><input type="checkbox"><span class="villain">🔴 Funções orgânicas e nomenclatura</span></div>
+        </div>
+
+        <div>
+          <div class="check-group-title hum-t">🌍 Ciências Humanas</div>
+          <div class="check-item"><input type="checkbox"><span>Geopolítica e conflitos mundiais</span></div>
+          <div class="check-item"><input type="checkbox"><span>Brasil República e ditadura militar</span></div>
+          <div class="check-item"><input type="checkbox"><span>Cartografia e leitura de mapas</span></div>
+          <div class="check-item"><input type="checkbox"><span>Urbanização e metropolização</span></div>
+          <div class="check-item"><input type="checkbox"><span>Iluminismo e Rev. Francesa</span></div>
+          <div class="check-item"><input type="checkbox"><span>Direitos humanos e cidadania</span></div>
+          <div class="check-item"><input type="checkbox"><span>Globalização e neoliberalismo</span></div>
+          <div class="check-item"><input type="checkbox"><span>Indústria e questão ambiental</span></div>
+          <div class="check-item"><input type="checkbox"><span>Filosofia política (Hobbes, Locke, Rousseau)</span></div>
+          <div class="check-item"><input type="checkbox"><span>Sociologia: Marx, Weber, Durkheim</span></div>
+          <div class="check-item villain"><input type="checkbox"><span class="villain">🔴 Pré-história e povos antigos</span></div>
+          <div class="check-item villain"><input type="checkbox"><span class="villain">🔴 Climatologia complexa</span></div>
+        </div>
+
+        <div>
+          <div class="check-group-title lin-t">📚 Linguagens</div>
+          <div class="check-item"><input type="checkbox"><span>Interpretação de texto</span></div>
+          <div class="check-item"><input type="checkbox"><span>Figuras de linguagem</span></div>
+          <div class="check-item"><input type="checkbox"><span>Coesão e coerência textual</span></div>
+          <div class="check-item"><input type="checkbox"><span>Variação linguística</span></div>
+          <div class="check-item"><input type="checkbox"><span>Literatura brasileira (modernismo)</span></div>
+          <div class="check-item"><input type="checkbox"><span>Gêneros textuais e discursivos</span></div>
+          <div class="check-item"><input type="checkbox"><span>Inglês/Espanhol (vocabulário básico)</span></div>
+          <div class="check-item"><input type="checkbox"><span>Artes visuais e música no contexto</span></div>
+          <div class="check-item"><input type="checkbox"><span>Propaganda e linguagem midiática</span></div>
+          <div class="check-item"><input type="checkbox"><span>Pontuação e concordância</span></div>
+          <div class="check-item villain"><input type="checkbox"><span class="villain">🔴 Literatura: períodos e características</span></div>
+          <div class="check-item villain"><input type="checkbox"><span class="villain">🔴 Crase, regência e colocação pronominal</span></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- MÉTODO -->
+  <div id="metodo" class="section">
+    <div class="card">
+      <div class="card-title">🧠 Método Feynman adaptado ao ENEM</div>
+      <p style="font-size:12px;color:#666;margin-bottom:12px;">Exemplo: Química Orgânica — ou qualquer matéria difícil</p>
+      <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Estude o conteúdo uma vez</strong> — leia/assista ao conteúdo sem anotar. Foco total por 20 min.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Explique em voz alta</strong> — feche o material e explique como se ensinasse alguém de 12 anos. Grave no celular se quiser.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Identifique os buracos</strong> — onde você travou? Volte APENAS nessa parte. Não releia tudo de novo.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Simplifique com analogias</strong> — ex.: "Alquenos têm dupla ligação, como corrente com elo duplo — mais reativo, menos estável."</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-text"><strong>Resolva 5 questões ENEM</strong> — sem consulta. Errou? Volta ao passo 3. Acertou? Avança.</div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-text"><strong>Revisão espaçada</strong> — revisite em 1 dia, 3 dias, 7 dias e 21 dias (Anki ou caderno de flashcards).</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">⚡ Estudo intercalado — como aplicar</div>
+      <div class="step"><div class="step-num">A</div><div class="step-text"><strong>Nunca estude uma matéria por mais de 90 min seguidos.</strong> O cérebro consolida melhor com troca de contexto.</div></div>
+      <div class="step"><div class="step-num">B</div><div class="step-text"><strong>Intercale por dificuldade:</strong> Fácil → Difícil → Médio. Ex.: Porcentagem → Geometria Espacial → PA/PG.</div></div>
+      <div class="step"><div class="step-num">C</div><div class="step-text"><strong>Sempre inicie pelo mais difícil</strong> — sua energia cognitiva é maior nos primeiros 30 min do bloco.</div></div>
+      <div class="step"><div class="step-num">D</div><div class="step-text"><strong>Ordem recomendada em Matemática:</strong> Regra de Três Composta → Função Afim → Função Quadrática → Progressões → Logaritmos → Geometria Espacial.</div></div>
+    </div>
+  </div>
+
+  <!-- SIMULADOS -->
+  <div id="simulados" class="section">
+    <div class="card">
+      <div class="card-title">📊 Estratégia de simulados por fase</div>
+      <table>
+        <tr><th>Fase</th><th>Frequência</th><th>Formato</th><th>Foco</th></tr>
+        <tr><td><span style="background:#EAF3DE;color:#3B6D11;padding:2px 7px;border-radius:8px;font-weight:700;font-size:11px;">Fase 1</span></td><td>1x/semana (sábado)</td><td>Simulado parcial — 30 questões por área</td><td>Diagnóstico de lacunas</td></tr>
+        <tr><td><span style="background:#E6F1FB;color:#0C447C;padding:2px 7px;border-radius:8px;font-weight:700;font-size:11px;">Fase 2</span></td><td>2x/semana (sex+dom)</td><td>Simulado completo — 90 questões com cronômetro</td><td>Velocidade + TRI</td></tr>
+        <tr><td><span style="background:#FAEEDA;color:#633806;padding:2px 7px;border-radius:8px;font-weight:700;font-size:11px;">Fase 3</span></td><td>1x/semana + revisão</td><td>Provas ENEM originais anteriores</td><td>Confiança + timing</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🔍 Planilha mental de análise de erros</div>
+      <p style="font-size:12px;color:#666;margin-bottom:10px;">Para cada questão errada, responda as 4 perguntas:</p>
+      <table>
+        <tr><th>#</th><th>Pergunta</th><th>O que anotar</th><th>Ação</th></tr>
+        <tr><td>1</td><td>Por que errei?</td><td>Conteúdo / pegadinha / falta de tempo / distração</td><td>Classifique o tipo de erro</td></tr>
+        <tr><td>2</td><td>Qual o conceito?</td><td>Nome exato do tópico (ex: "proporção geométrica")</td><td>Anote na lista de revisão</td></tr>
+        <tr><td>3</td><td>Como a TRI me afetou?</td><td>Era questão fácil/média/difícil?</td><td>Questão fácil errada = prioridade máxima</td></tr>
+        <tr><td>4</td><td>Como resolvo certo?</td><td>Escreva a solução completa à mão</td><td>Resolva 3 questões similares em 48h</td></tr>
+      </table>
+      <div class="tip tip-red" style="margin-top:10px;"><strong>Regra de ouro TRI:</strong> Questões fáceis erradas custam mais pontos que difíceis acertadas. Elimine primeiro os erros nas questões de nível 1 e 2.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🎯 Como não cair em pegadinhas de interpretação</div>
+      <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Leia a pergunta ANTES do texto.</strong> Saiba o que buscar antes de ler o enunciado.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Sublinhe o verbo da questão:</strong> "analisa", "critica", "defende", "exemplifica" — cada um pede um tipo de resposta diferente.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Elimine os absurdos primeiro</strong> — 2 alternativas geralmente são obviamente erradas. Foque nas 3 restantes.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Cuidado com "sempre", "nunca", "todos", "apenas"</strong> — palavras absolutas quase sempre indicam a alternativa errada.</div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-text"><strong>A resposta está no texto.</strong> Em interpretação, nunca use conhecimento externo — a resposta está nas linhas ou entrelinhas do enunciado.</div></div>
+    </div>
+  </div>
+
+  <!-- REDAÇÃO -->
+  <div id="redacao" class="section">
+    <div class="card">
+      <div class="card-title">✍️ Estrutura coringa — funciona para qualquer tema</div>
+      <div class="para-block intro-b">
+        <div class="para-title">Parágrafo 1 — Introdução (6–8 linhas)</div>
+        <div class="para-text">Repertório sociocultural de abertura → Contextualização do tema → Tese clara (sua posição) → Anúncio dos 2 argumentos</div>
+      </div>
+      <div class="para-block dev1-b">
+        <div class="para-title">Parágrafo 2 — Desenvolvimento 1 (8–10 linhas)</div>
+        <div class="para-text">Tópico frasal (argumento 1) → Desenvolvimento com evidência/dado → Exemplificação concreta → Conclusão parcial do argumento</div>
+      </div>
+      <div class="para-block dev2-b">
+        <div class="para-title">Parágrafo 3 — Desenvolvimento 2 (8–10 linhas)</div>
+        <div class="para-text">Tópico frasal (argumento 2, diferente do 1) → Aprofundamento com repertório → Conexão com a tese → Fechamento do raciocínio</div>
+      </div>
+      <div class="para-block conc-b">
+        <div class="para-title">Parágrafo 4 — Conclusão (6–8 linhas) ⚠️ MAIS IMPORTANTE</div>
+        <div class="para-text">Retomada da tese sem repetir palavras → Proposta de intervenção COMPLETA: <strong>agente + ação + modo/meio + finalidade + respeito aos direitos humanos</strong></div>
+      </div>
+      <div class="tip tip-green">Meta: 25–30 linhas. Nunca menos de 20. Letra legível e parágrafos visualmente distintos.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🃏 5 repertórios curingas para 2026</div>
+      <div class="rep-item"><div class="rep-icon">🏛️</div><div class="rep-text"><strong>Constituição Federal (1988):</strong> O art. 1º estabelece a dignidade da pessoa humana como fundamento do Estado Democrático de Direito. — Funciona para direitos, desigualdade, violência.</div></div>
+      <div class="rep-item"><div class="rep-icon">📖</div><div class="rep-text"><strong>Zygmunt Bauman (Modernidade Líquida):</strong> A fluidez das relações na sociedade contemporânea e a fragilidade dos vínculos sociais. — Tecnologia, isolamento, consumismo, identidade.</div></div>
+      <div class="rep-item"><div class="rep-icon">🌱</div><div class="rep-text"><strong>ODS da ONU (Agenda 2030):</strong> Os Objetivos de Desenvolvimento Sustentável como compromisso global. — Meio ambiente, fome, saúde, educação, desigualdade.</div></div>
+      <div class="rep-item"><div class="rep-icon">🧪</div><div class="rep-text"><strong>Yuval Harari (Sapiens / Homo Deus):</strong> A evolução humana, o papel da narrativa coletiva e os desafios da inteligência artificial. — Tecnologia, IA, identidade humana, futuro.</div></div>
+      <div class="rep-item"><div class="rep-icon">⚖️</div><div class="rep-text"><strong>Paulo Freire (Pedagogia do Oprimido):</strong> A educação como prática de liberdade e a conscientização como ferramenta de transformação. — Educação, desigualdade, exclusão social.</div></div>
+    </div>
+  </div>
+
+  <!-- DIA DA PROVA -->
+  <div id="guerra" class="section">
+
+    <div class="card">
+      <div class="card-title">⚔️ Estratégia de guerra — ordem na prova</div>
+      <div class="guerra-row">
+        <div>
+          <div class="g-title g1">Dia 1 — Humanas + Linguagens + Redação</div>
+          <div class="g-step"><div class="g-n">1</div><div>Leia todo o caderno (5 min) — veja o tema da redação. Não entre em pânico. <span style="color:#888;font-size:11px;">0h00–0h05</span></div></div>
+          <div class="g-step"><div class="g-n">2</div><div>Linguagens primeiro: inglês/espanhol (mais rápidos), depois interpretação. <span style="color:#888;font-size:11px;">0h05–1h00</span></div></div>
+          <div class="g-step"><div class="g-n">3</div><div>Humanas: por temas — História → Geografia → Filosofia → Sociologia. <span style="color:#888;font-size:11px;">1h00–2h00</span></div></div>
+          <div class="g-step"><div class="g-n">4</div><div>Redação: rascunho completo ANTES de passar a limpo. <span style="color:#888;font-size:11px;">2h00–3h30</span></div></div>
+          <div class="g-step"><div class="g-n">5</div><div>Passe a redação e revise questões com dúvida marcada. <span style="color:#888;font-size:11px;">3h30–4h30</span></div></div>
+          <div class="g-step"><div class="g-n">6</div><div>Gabarito: preencha com 30 min de antecedência. Nunca no último minuto. <span style="color:#888;font-size:11px;">4h30–5h00</span></div></div>
+        </div>
+        <div>
+          <div class="g-title g2">Dia 2 — Ciências da Natureza + Matemática</div>
+          <div class="g-step"><div class="g-n">1</div><div>Ciências da Natureza primeiro — maior número, mais cansativo no fim. <span style="color:#888;font-size:11px;">0h00–1h30</span></div></div>
+          <div class="g-step"><div class="g-n">2</div><div>Ordem: Biologia → Química → Física. Bio tem mais questões contextuais (mais fáceis). <span style="color:#888;font-size:11px;">Dentro do bloco</span></div></div>
+          <div class="g-step"><div class="g-n">3</div><div>Matemática: resolva em ordem, marcando as que travar. Volte depois. <span style="color:#888;font-size:11px;">1h30–4h00</span></div></div>
+          <div class="g-step"><div class="g-n">4</div><div>Regra: máximo 3 min por questão que travar. Marque e siga em frente. <span style="color:#888;font-size:11px;">Regra contínua</span></div></div>
+          <div class="g-step"><div class="g-n">5</div><div>Reserve 30 min para revisar cálculos e preencher o gabarito com calma. <span style="color:#888;font-size:11px;">4h00–4h30</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🧘 Protocolo anti-ansiedade — última semana</div>
+      <div class="anti-row">
+        <div class="do-c">
+          <div class="anti-title">✅ Pode e deve fazer</div>
+          <div class="anti-item"><span style="color:#639922;font-weight:700;">+</span> Revisar apenas sua pasta de erros</div>
+          <div class="anti-item"><span style="color:#639922;font-weight:700;">+</span> Dormir 8h por noite</div>
+          <div class="anti-item"><span style="color:#639922;font-weight:700;">+</span> Caminhar 30 min por dia</div>
+          <div class="anti-item"><span style="color:#639922;font-weight:700;">+</span> Reler suas melhores redações</div>
+          <div class="anti-item"><span style="color:#639922;font-weight:700;">+</span> Preparar material (doc, lápis, caneta)</div>
+          <div class="anti-item"><span style="color:#639922;font-weight:700;">+</span> Visualizar a prova sendo bem feita</div>
+          <div class="anti-item"><span style="color:#639922;font-weight:700;">+</span> Manter alimentação e hidratação</div>
+        </div>
+        <div class="dont-c">
+          <div class="anti-title">🚫 Proibido na última semana</div>
+          <div class="anti-item"><span style="color:#A32D2D;font-weight:700;">-</span> Estudar conteúdo novo</div>
+          <div class="anti-item"><span style="color:#A32D2D;font-weight:700;">-</span> Fazer simulado completo em D-3</div>
+          <div class="anti-item"><span style="color:#A32D2D;font-weight:700;">-</span> Ver gabaritos de provas difíceis</div>
+          <div class="anti-item"><span style="color:#A32D2D;font-weight:700;">-</span> Comparar preparo com o de outros</div>
+          <div class="anti-item"><span style="color:#A32D2D;font-weight:700;">-</span> Grupos de WhatsApp de ENEM</div>
+          <div class="anti-item"><span style="color:#A32D2D;font-weight:700;">-</span> Dormir tarde por ansiedade</div>
+          <div class="anti-item"><span style="color:#A32D2D;font-weight:700;">-</span> Cafeína em excesso no D-1</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
